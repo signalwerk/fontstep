@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font>
+
+    <!--
+    Actions:
+        copysave - creats a copy of the font with a new name
+        metric - set metrics according to other glyphs
+        delete - delete sepecific glyphs
+        decompose - decompose and remove overlapas
+        copy - copy specific glyphs
+        autoUnicode - auto unicode the whole font 
+        unicode - set unicode-point with UID attribute
+        copysave - creats a copy of the font with a new name
+        saveTTF - save the current font as TrueType-Font (TTF)
+        saveOTF - save the current font as OpenType-Font (CFF)
+        saveJSON - save some information about the current font as JSON
+        save - save current font
+    -->
+
+    <!-- Creats a copy of the font with a new name with following naming scheme: `%Y%m%d-%H%M_generated.vfb`. Resulting in names like: `20130824-2301_generated.vfb` -->
+    <step action="copysave"/>
+    
+    <!-- The character with the name yen gets decomposed and all overlaps removed -->
+    <step action="metrics">
+        <!-- parenright gets the left margin set to the right margin of parenleft. It also gets the width of  parenleft -->
+        <glyph PSName="parenright" left="right(parenleft)" width="width(parenleft)"/>
+        
+        <!-- backslash gets the right margin set to the right left of slash.-->
+        <glyph PSName="backslash" right="left(slash)"/>
+        
+        <!-- all glyphs in the class MathSign (defined in FontLab) get the width of the glyph plus -->
+        <glyph PSName="@MathSign" width="width(plus)"/>
+        
+        <!-- all glyphs in the class TabNumber (defined in FontLab) get the of the widest glyph in the class TabNumber -->
+        <glyph PSName="@TabNumber" width="max(width(@TabNumber))"/>
+    </step>
+    
+    <!-- The characters with the name quote_helper and dot_helper get deleted-->
+    <step action="delete">
+        <glyph PSName="quote_helper"/>
+        <glyph PSName="dot_helper"/>
+    </step>
+
+    <!-- The characters with the name yen and dollar get decomposed and all overlaps removed-->
+    <step action="decompose">
+        <glyph PSName="yen"/>
+        <glyph PSName="dollar"/>
+    </step>
+
+    <!-- The character with the name a gets created and the content of glyph A gets copied to it -->
+    <step action="copy">
+        <glyph PSName="a">
+            <base PSName="A"/>
+        </glyph>
+    </step>
+
+    <!-- All known characters (by name) get an unicode-point -->
+    <step action="autoUnicode"/>
+
+    <!-- Some specific glyphs get an unicode-point (decimal)  -->
+    <step action="unicode">
+        <glyph PSName="logo" UID="57344"/>
+        <glyph PSName="zero.fitted" UID="63033"/>
+        <glyph PSName="one.fitted" UID="63196"/>
+        <glyph PSName="two.fitted" UID="63034"/>
+        <glyph PSName="three.fitted" UID="63035"/>
+        <glyph PSName="four.fitted" UID="63036"/>
+        <glyph PSName="five.fitted" UID="63037"/>
+        <glyph PSName="six.fitted" UID="63038"/>
+        <glyph PSName="seven.fitted" UID="63039"/>
+        <glyph PSName="eight.fitted" UID="63040"/>
+        <glyph PSName="nine.fitted" UID="63041"/>
+    </step>
+
+    <!-- Saves the current font as a PC TrueType/TT OpenType font (TTF) -->
+    <step action="saveTTF" name="../build/SplitBean-Regular.ttf"/>
+
+    <!-- Saves the current font as a PS OpenType (CFF-based) font (OTF) -->
+    <step action="saveOTF" name="../build/SplitBean-Regular.otf"/>
+
+    <!-- Save some information about the current font as JSON -->
+    <step action="saveJSON" name="../build/SplitBean-Regular.json"/>
+
+    <!-- Saves the current font -->
+    <step action="save"/>
+
+</font>

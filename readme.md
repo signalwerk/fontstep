@@ -1,16 +1,16 @@
 ## fontstep.py
-fontstep is a little python-script to run some build-steps in fontlab for deploying fonts
+fontstep is a little python-script to run some build-steps in FontLab for deploying fonts
 
-### Actions you can controll:
+### Actions you can control:
 
-* copysave - creats a copy of the font with a new name
+* copysave - creates a copy of the font with a new name
 * metric - set metrics according to other glyphs
 * delete - delete sepecific glyphs
-* decompose - decompose and remove overlapas
+* decompose - decompose and remove overlaps
 * copy - copy specific glyphs
 * autoUnicode - auto unicode the whole font 
 * unicode - set unicode-point with UID attribute
-* copysave - creats a copy of the font with a new name
+* copysave - creates  a copy of the font with a new name
 * saveTTF - save the current font as TrueType-Font (TTF)
 * saveOTF - save the current font as OpenType-Font (CFF)
 * saveJSON - save some information about the current font as JSON
@@ -19,18 +19,17 @@ fontstep is a little python-script to run some build-steps in fontlab for deploy
 ### Requirements
 To run the File you have to have following software installed:
 
-* FontLab 5.* on Mac OS X
+* FontLab 5.x on Mac OS X
 * robofab (updated build)
 
 
 ## Control file
-The whole process is controlled by a single file along witht he FontLab-Fontfile. The control file must have the name `fontstep.xml` and must be in the same folder like the Fontfile.
+The whole process is controlled by a single file along with the FontLab-Fontfile. The control file must have the name `fontstep.xml` and must be in the same folder like the Fontfile.
 
 ### Directory structure
 
 ```
  - Folder
-     (files:)
      Fontfile.vfb
      fontstep.xml
 ```
@@ -39,7 +38,7 @@ The whole process is controlled by a single file along witht he FontLab-Fontfile
 The `fontstep.xml` is a regular XML-File. It has a strict structure like described here. The fontstep.py doesn't allow mistakes and will break otherwise.
 
 
-### Step struckture
+### Step structure
 The `fontstep.xml` has a `font`-tag as root-element. All tasks are in a `step`-tag. All `step`-tag *must* have an `action`-attribute. 
 
 
@@ -53,12 +52,12 @@ The `fontstep.xml` has a `font`-tag as root-element. All tasks are in a `step`-t
 </font>
 ```
 
-## Aviable Steps
+## Available steps
 For the `action`-attribute you can have one of the steps. Described in the following paragraphs.
 
 
 ### copysave (action)
-Creats a copy of the font with a new name with following naming scheme: `%Y%m%d-%H%M_generated.vfb`. Resulting in names like: `20130824-2301_generated.vfb`
+Creates a copy of the font with a new name with following naming scheme: `%Y%m%d-%H%M_generated.vfb`. Resulting in names like: `20130824-2301_generated.vfb`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -109,7 +108,7 @@ For all the glyph references you can use a glyph-name or a class name (as define
 ```
 
 ### delete (action)
-Delets a specific glyph
+Deletes a specific glyph
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -191,7 +190,7 @@ Saves the current font as a PC TrueType/TT OpenType font (TTF). Int the `name`-a
 ```
 
 ### saveOTF (action)
-Saves the current font as a PS OpenType (CFF-based) font (OTF). Int the `name`-attribute you can define the filename.
+Saves the current font as a PS OpenType (CFF-based) font (OTF). With the `name`-attribute you can define the filename.
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <font>

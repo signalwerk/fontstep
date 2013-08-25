@@ -71,7 +71,7 @@ With the metrics step you can set the left margin (attribute `left`), the right 
 
 The syntax to set a glyph is: 
 ```xml
-<glyph PSName="{{name of glyph to set attributes}}" left="{{def}}" right="{{def}}" width="{{def}}"/>
+<glyph PSName="{{name of glyph}}" left="{{def}}" right="{{def}}" width="{{def}}"/>
 ```
 
 As for the definition of the values you can use the following syntax:

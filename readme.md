@@ -70,7 +70,7 @@ Creates a copy of the font with a new name with following naming scheme: `%Y%m%d
 With the metrics step you can set the left margin (attribute `left`), the right margin (attribute `right`) and the width (attribute `width`) of a glyph according to these attributes of an other glyph. You can set all three values or just one or two.
 
 The syntax to set a glyph is: 
-```
+```xml
 <glyph PSName="{{name of glyph to set attributes}}" left="{{def}}" right="{{def}}" width="{{def}}"/>
 ```
 

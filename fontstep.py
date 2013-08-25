@@ -194,6 +194,8 @@ def getMetrics(strFunction):
                 returnVal.append(f[glyphNames[cIdx]].width)
             if functionName == 'max':
                 returnVal.append(max(getMetrics(functionArg)))
+            if functionName == 'min':
+                returnVal.append(min(getMetrics(functionArg)))
 
         # print "parse: " + strFunction + " to %s"%returnVal
 
@@ -305,7 +307,7 @@ def writeInfoJson(fileName):
 
 f = CurrentFont()
 
-ctlfile = r""+f.path[0:f.path.rfind("/")+1]+"postProcess.xml"  # see fileext
+ctlfile = r""+f.path[0:f.path.rfind("/")+1]+"fontstep.xml"  # see fileext
 
 fh = open(ctlfile, "r")
 if fh:

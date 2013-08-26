@@ -309,7 +309,7 @@ def writeInfoJson(fileName):
     fOut = open(jsonPathNew, "w")
 
     fOut.write('{ "chars" :')
-    fOut.write(json.dumps(outJson))
+    fOut.write(json.dumps(outJson,indent=4))
     fOut.write('}')
     fOut.close()
 

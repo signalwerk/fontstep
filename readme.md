@@ -11,6 +11,7 @@ fontstep is a little python-script to run some build-steps in FontLab for deploy
 * autoUnicode - auto unicode the whole font 
 * unicode - set unicode-point with UID attribute
 * copysave - creates  a copy of the font with a new name
+* orderGlyphs – sort all Glyphs in the Font by Name
 * saveTTF - save the current font as TrueType-Font (TTF)
 * saveOTF - save the current font as OpenType-Font (CFF)
 * saveJSON - save some information about the current font as JSON
@@ -160,6 +161,7 @@ All known characters (by name) get an unicode-point
 ```
 ### unicode (action)
 Some specific glyphs get an unicode-point (decimal) 
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <font>
@@ -176,6 +178,16 @@ Some specific glyphs get an unicode-point (decimal)
         <glyph PSName="eight.fitted" UID="63040"/>
         <glyph PSName="nine.fitted" UID="63041"/>
     </step>
+</font>
+```
+
+### orderGlyphs (action)
+Sort all Glyphs in the Font by Name. The  `by`-attribute is not implemented right now. Sorting is always by name.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<font>
+    <step action="orderGlyphs" by="name"/>
 </font>
 ```
 

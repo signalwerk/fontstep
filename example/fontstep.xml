@@ -3,18 +3,19 @@
 
     <!--
     Actions:
-        copysave - creats a copy of the font with a new name
-        metric - set metrics according to other glyphs
-        delete - delete sepecific glyphs
-        decompose - decompose and remove overlapas
-        copy - copy specific glyphs
-        autoUnicode - auto unicode the whole font 
-        unicode - set unicode-point with UID attribute
-        copysave - creats a copy of the font with a new name
-        saveTTF - save the current font as TrueType-Font (TTF)
-        saveOTF - save the current font as OpenType-Font (CFF)
-        saveJSON - save some information about the current font as JSON
-        save - save current font
+    * copysave - creates a copy of the font with a new name
+    * metric - set metrics according to other glyphs
+    * delete - delete sepecific glyphs
+    * decompose - decompose and remove overlaps
+    * copy - copy specific glyphs
+    * autoUnicode - auto unicode the whole font 
+    * unicode - set unicode-point with UID attribute
+    * copysave - creates  a copy of the font with a new name
+    * orderGlyphs – sort all Glyphs in the Font by Name
+    * saveTTF - save the current font as TrueType-Font (TTF)
+    * saveOTF - save the current font as OpenType-Font (CFF)
+    * saveJSON - save some information about the current font as JSON
+    * save - save current font
     -->
 
     <!-- Creats a copy of the font with a new name with following naming scheme: `%Y%m%d-%H%M_generated.vfb`. Resulting in names like: `20130824-2301_generated.vfb` -->
@@ -72,6 +73,9 @@
         <glyph PSName="nine.fitted" UID="63041"/>
     </step>
 
+    <!-- Sort all Glyphs in the Font by Name -->
+    <step action="orderGlyphs" by="name"/>
+    
     <!-- Saves the current font as a PC TrueType/TT OpenType font (TTF) -->
     <step action="saveTTF" name="../build/SplitBean-Regular.ttf"/>
 

@@ -23,7 +23,7 @@
 
 from xmllib import *
 from robofab.world import CurrentFont
-#import robofab.world
+import json
 import datetime
 import re
 
@@ -48,6 +48,10 @@ def start_step(attrib):
     if currAction == 'saveJSON':
         print "json saved"
         writeInfoJson(attrib['name'])
+
+    if currAction == 'orderGlyphs':
+        print "order glyphs"
+        orderGlyphs(attrib['by'])
 
     if currAction == 'saveTTF':
         print "TrueType saved"
@@ -252,6 +256,14 @@ def getGlyphClass(classNameRaw):
         print "Error. No FontLab?!"
 
 
+def orderGlyphs(sortBy):
+    f.update()
+    fl.CallCommand(fl_cmd.EditSelectAll)
+    fl.CallCommand(fl_cmd.FontModeNames)
+    fl.CallCommand(fl_cmd.FontSortByName)
+    f.update()
+
+
 def writeTTF(fileName):
     # PC TrueType/TT OpenType font (TTF)
     writeFontFL(ftTRUETYPE, getPathString() + fileName)
@@ -281,7 +293,7 @@ def writeInfoJson(fileName):
 
         if (len(glyph.unicodes) > 0):
             outCurrent['unicode'] = glyph.unicodes[0]
-            outCurrent['unicodeHex'] = hex(outCurrent['unicode'])[2:].upper()
+            outCurrent['unicodeHex'] = hex(glyph.unicodes[0])[2:].upper()
             # is in  Private Use Areas
             if outCurrent['unicode'] >= int("E000", 16) and outCurrent['unicode'] <= int("F8FF", 16):
                 outCurrent['private'] = 1

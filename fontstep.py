@@ -233,6 +233,10 @@ def doMetrics(attrib):
             # print attrib['width']
             # print getMetrics(attrib['width'])
             g.width = getMetrics(attrib['width'])
+        if 'centeredWidth' in attrib:
+            newWidth = getMetrics(attrib['centeredWidth'])
+            g.leftMargin = g.leftMargin + (( newWidth - g.width ) / 2) 
+            g.width = newWidth
 
         g.update()
 

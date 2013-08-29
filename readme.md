@@ -72,17 +72,19 @@ With the metrics step you can set the left margin (attribute `left`), the right 
 
 The syntax to set a glyph is: 
 ```xml
-<glyph PSName="{{name of glyph}}" left="{{def}}" right="{{def}}" width="{{def}}"/>
+<glyph PSName="{{name of glyph}}" left="{{def}}" right="{{def}}" width="{{def}}" centeredWidth="{{def}}"/>
 ```
 
 As for the definition of the values you can use the following syntax:
 
 ```
-left({{name of the glyph to get the left margin}})
+left({{name of the glyph to get the left margin}})      >> set left margin 
 or
-right({{name of the glyph to get the right margin}})
+right({{name of the glyph to get the right margin}})    >> set right margin 
 or
-width({{name of the glyph to get the width}})
+width({{name of the glyph to get the width}})           >> set width with reference point left
+or
+centeredWidth({{name of the glyph to get the width}})   >> set width with centered reference point
 ```
 
 #### Helpers for classes
@@ -102,8 +104,11 @@ For all the glyph references you can use a glyph-name or a class name (as define
         <!-- all glyphs in the class MathSign (defined in FontLab) get the width of the glyph plus -->
         <glyph PSName="@MathSign" width="width(plus)"/>
         
-        <!-- all glyphs in the class TabNumber (defined in FontLab) get the of the widest glyph in the class TabNumber -->
+        <!-- all glyphs in the class TabNumber (defined in FontLab) get the of the widest glyph in the class TabNumber. The reference point is at position 0 (left). -->
         <glyph PSName="@TabNumber" width="max(width(@TabNumber))"/>
+        
+        <!-- all glyphs in the class TabNumber (defined in FontLab) get the of the widest glyph in the class centeredWidth. The reference point is in the center of the glyph. -->
+        <glyph PSName="@MathSymbols" centeredWidth="max(width(@MathSymbols))"/>
     </step>
 </font>
 ```

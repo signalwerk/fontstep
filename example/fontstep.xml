@@ -32,8 +32,11 @@
         <!-- all glyphs in the class MathSign (defined in FontLab) get the width of the glyph plus -->
         <glyph PSName="@MathSign" width="width(plus)"/>
         
-        <!-- all glyphs in the class TabNumber (defined in FontLab) get the of the widest glyph in the class TabNumber -->
+        <!-- all glyphs in the class TabNumber (defined in FontLab) get the of the widest glyph in the class TabNumber. The reference point is at position 0 (left). -->
         <glyph PSName="@TabNumber" width="max(width(@TabNumber))"/>
+        
+        <!-- all glyphs in the class TabNumber (defined in FontLab) get the of the widest glyph in the class centeredWidth. The reference point is in the center of the glyph. -->
+        <glyph PSName="@MathSymbols" centeredWidth="max(width(@MathSymbols))"/>
     </step>
     
     <!-- The characters with the name quote_helper and dot_helper get deleted-->

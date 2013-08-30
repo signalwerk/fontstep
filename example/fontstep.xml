@@ -61,19 +61,18 @@
     <!-- All known characters (by name) get an unicode-point -->
     <step action="autoUnicode"/>
 
-    <!-- Some specific glyphs get an unicode-point (decimal)  -->
+    <!-- Some specific glyphs get an unicode-point (decimal or hex)  -->
     <step action="unicode">
         <glyph PSName="logo" UID="57344"/>
-        <glyph PSName="zero.fitted" UID="63033"/>
-        <glyph PSName="one.fitted" UID="63196"/>
-        <glyph PSName="two.fitted" UID="63034"/>
-        <glyph PSName="three.fitted" UID="63035"/>
-        <glyph PSName="four.fitted" UID="63036"/>
-        <glyph PSName="five.fitted" UID="63037"/>
-        <glyph PSName="six.fitted" UID="63038"/>
-        <glyph PSName="seven.fitted" UID="63039"/>
-        <glyph PSName="eight.fitted" UID="63040"/>
-        <glyph PSName="nine.fitted" UID="63041"/>
+        <glyph PSName="one.fitted" UID="0xF6DC"/>
+        <glyph PSName="two.fitted" UID="0xF63A"/>
+        <glyph PSName="three.fitted" UID="0xF63B"/>
+        <glyph PSName="four.fitted" UID="0xF63C"/>
+        <glyph PSName="five.fitted" UID="0xF63D"/>
+        <glyph PSName="six.fitted" UID="0xF63E"/>
+        <glyph PSName="seven.fitted" UID="0xF63F"/>
+        <glyph PSName="eight.fitted" UID="0xF640"/>
+        <glyph PSName="nine.fitted" UID="0xF641"/>
     </step>
 
     <!-- Sort all Glyphs in the Font by Name -->

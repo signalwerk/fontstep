@@ -71,6 +71,10 @@ def start_step(attrib):
         print "Set auto unicodes"
 
 
+def end_step():
+    f.update()
+
+
 def start_glyph(attrib):
     global currAction, currGlyph
 
@@ -101,18 +105,50 @@ def end_font():
 
 #XML parser - could be replace by more up-to-date SAX parser
 class jobXML(XMLParser):
-    elements = {'glyph': [start_glyph,  None],
-                'base': [start_base,   None],
-                'step': [start_step,   None],
+    elements = {'glyph': [start_glyph, None],
+                'base': [start_base, None],
+                'step': [start_step, end_step],
                 'font': [None,   end_font]}
 
 ########################################################################
 
 
+# source: http://rosettacode.org/wiki/Determine_if_a_string_is_numeric#Python
+# returns the int-value
+def is_numeric(lit):
+    'Return value of numeric literal string or ValueError exception'
+ 
+    # Handle '0'
+    if lit == '0': return 0
+    # Hex/Binary
+    litneg = lit[1:] if lit[0] == '-' else lit
+    if litneg[0] == '0':
+        if litneg[1] in 'xX':
+            return int(lit,16)
+        elif litneg[1] in 'bB':
+            return int(lit,2)
+        else:
+            try:
+                return int(lit,8)
+            except ValueError:
+                pass
+ 
+    # Int/Float/Complex
+    try:
+        return int(lit)
+    except ValueError:
+        pass
+    try:
+        return float(lit)
+    except ValueError:
+        pass
+    return complex(lit)
+
+
 def doUnicode(glyphname, unicode):
     print "Unicode of %s to %s" % (glyphname, unicode)
 
-    f[glyphname].unicodes = [int(unicode)]
+    f[glyphname].unicodes = [is_numeric(unicode)]
     f[glyphname].update()
 
 
@@ -241,9 +277,30 @@ def doMetrics(attrib):
         g.update()
 
 
+def getClasses():
+
+    out = {}
+
+    flF = fl.font
+    if flF is not None:
+        classes = flF.classes
+
+        for cIdx in range(len(classes)):
+            cName = classes[cIdx].split(":")[0].strip()
+            cName = cName.lstrip(".")
+            cGlyphs = classes[cIdx].split(":")[1].strip()
+            cGlyphs = cGlyphs.replace("'", "").split(" ")
+            out[cName] = cGlyphs
+    else:
+        print "Error. No FontLab?!"
+
+    return out
+
+
 def getGlyphClass(classNameRaw):
     className = classNameRaw.replace("@", "")
 
+    # todo: bring in getClasses !
     flF = fl.font
     if flF is not None:
         classes = flF.classes
@@ -282,39 +339,53 @@ def writeFontFL(fontType, path):
     fl.GenerateFont(fontType, path)
 
 
+
+def getInfoGlyph(glyphName):
+    glyph = f[glyphName]
+    outCurrent = {}
+    outCurrent['name'] = glyph.name
+
+    if (len(glyph.unicodes) > 0):
+        # print first unicode
+        outCurrent['unicode'] = glyph.unicodes[0]
+        outCurrent['unicodeHex'] = hex(glyph.unicodes[0])[2:].upper()
+
+    outCurrent['width'] = glyph.width
+    outCurrent['left'] = glyph.leftMargin
+    outCurrent['right'] = glyph.rightMargin
+    return outCurrent
+
+
 def writeInfoJson(fileName):
 
-    outJson = []
+    outJson = {}
+    outJson["chars"] = []
 
     for glyph in f.glyphs:
+        outJson["chars"].append( getInfoGlyph(glyph.name) )
 
+    outJson["classes"] = []
+
+    classList = getClasses()
+    #print list(classList)
+    for className in list(classList):
         outCurrent = {}
-        outCurrent['name'] = glyph.name
+        outCurrent['name'] = className
+        outCurrent['chars'] = []
 
-        # is the char with .fitted in the name (for numbers)
-        if outCurrent['name'].endswith(".fitted"):
-            outCurrent['fitted'] = 1
+        for char in getGlyphClass(className):
+            outCurrent['chars'].append(getInfoGlyph(char))
 
-        if (len(glyph.unicodes) > 0):
-            outCurrent['unicode'] = glyph.unicodes[0]
-            outCurrent['unicodeHex'] = hex(glyph.unicodes[0])[2:].upper()
-            # is in  Private Use Areas
-            if outCurrent['unicode'] >= int("E000", 16) and outCurrent['unicode'] <= int("F8FF", 16):
-                outCurrent['private'] = 1
+        outJson["classes"].append(outCurrent)
 
-        outCurrent['width'] = glyph.width
-        outCurrent['left'] = glyph.leftMargin
-        outCurrent['right'] = glyph.rightMargin
-
-        outJson.append(outCurrent)
 
     jsonPathNew = getPathString() + fileName
 
     fOut = open(jsonPathNew, "w")
 
-    fOut.write('{ "chars" :')
+    #fOut.write('{ "chars" :')
     fOut.write(json.dumps(outJson,indent=4))
-    fOut.write('}')
+    #fOut.write('}')
     fOut.close()
 
 

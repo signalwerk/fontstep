@@ -341,18 +341,21 @@ def writeFontFL(fontType, path):
 
 
 def getInfoGlyph(glyphName):
-    glyph = f[glyphName]
     outCurrent = {}
-    outCurrent['name'] = glyph.name
 
-    if (len(glyph.unicodes) > 0):
-        # print first unicode
-        outCurrent['unicode'] = glyph.unicodes[0]
-        outCurrent['unicodeHex'] = hex(glyph.unicodes[0])[2:].upper()
+    if f.has_key(glyphName):
+        glyph = f[glyphName]
+        outCurrent['name'] = glyph.name
 
-    outCurrent['width'] = glyph.width
-    outCurrent['left'] = glyph.leftMargin
-    outCurrent['right'] = glyph.rightMargin
+        if (len(glyph.unicodes) > 0):
+            # print first unicode
+            outCurrent['unicode'] = glyph.unicodes[0]
+            outCurrent['unicodeHex'] = hex(glyph.unicodes[0])[2:].upper()
+
+        outCurrent['width'] = glyph.width
+        outCurrent['left'] = glyph.leftMargin
+        outCurrent['right'] = glyph.rightMargin
+
     return outCurrent
 
 

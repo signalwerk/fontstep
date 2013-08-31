@@ -381,6 +381,10 @@ def writeInfoJson(fileName):
 
         outJson["classes"].append(outCurrent)
 
+    outJson["info"] = {}
+    outJson["info"]["versionMajor"] = f.info.versionMajor
+    outJson["info"]["versionMinor"] = f.info.versionMinor
+    outJson["info"]["version"] = f.info.versionMajor + (f.info.versionMinor / 1000.0)
 
     jsonPathNew = getPathString() + fileName
 

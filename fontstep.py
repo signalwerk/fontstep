@@ -351,6 +351,7 @@ def getInfoGlyph(glyphName):
             # print first unicode
             outCurrent['unicode'] = glyph.unicodes[0]
             outCurrent['unicodeHex'] = hex(glyph.unicodes[0])[2:].upper()
+            outCurrent['unicodeChar'] = unichr(glyph.unicodes[0])
 
         outCurrent['width'] = glyph.width
         outCurrent['left'] = glyph.leftMargin

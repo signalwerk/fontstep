@@ -154,13 +154,25 @@ def doUnicode(glyphname, unicode):
 
 # do special decompose for some glyphs
 def doDecompose(glyphname):
-    #print "remove overlaps of composed glyphs"
-    g = f[glyphname]
-    g.decompose()
-    # multiple remove to clean up straight lines with points inbetween
-    g.removeOverlap()
-    g.removeOverlap()
-    g.removeOverlap()
+
+    glyphNames = []
+
+    if glyphname[0] == "@":
+        glyphNames.extend(getGlyphClass(glyphname))
+    else:
+        glyphNames.append(glyphname)
+
+    for cIdx in range(len(glyphNames)):
+        
+        #print "remove overlaps of composed glyphs"
+        g = f[glyphNames[cIdx]]
+        g.decompose()
+        # multiple remove to clean up straight lines with points inbetween
+        g.removeOverlap()
+        g.removeOverlap()
+        g.removeOverlap()
+        g.update()
+
 
 
 def doDelGlyphs(glyphname):
@@ -405,13 +417,17 @@ f = CurrentFont()
 ctlfile = r""+f.path[0:f.path.rfind("/")+1]+"fontstep.xml"  # see fileext
 
 fh = open(ctlfile, "r")
+print "open: " + ctlfile
 if fh:
     xml = jobXML()
 
+    print "start parse" 
     strR = fh.readline()
     while strR:
         xml.feed(strR)
         strR = fh.readline()
 
+    print "end parse" 
+	
     xml.close
     fh.close

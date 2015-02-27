@@ -15,9 +15,8 @@
 #
 ########################################################################
 #
-# This file is dual-licensed:
-# BSD 2-Clause license  http://opensource.org/licenses/BSD-2-Clause
-# GPL v3                http://opensource.org/licenses/GPL-3.0
+# Released under the BSD 2-Clause license:
+# http://opensource.org/licenses/BSD-2-Clause
 #
 ########################################################################
 

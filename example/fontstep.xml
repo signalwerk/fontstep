@@ -21,7 +21,7 @@
     <!-- Creats a copy of the font with a new name with following naming scheme: `%Y%m%d-%H%M_generated.vfb`. Resulting in names like: `20130824-2301_generated.vfb` -->
     <step action="copysave"/>
     
-    <!-- The character with the name yen gets decomposed and all overlaps removed -->
+    <!-- Adjust metrics of glyphs and classes -->
     <step action="metrics">
         <!-- parenright gets the left margin set to the right margin of parenleft. It also gets the width of  parenleft -->
         <glyph PSName="parenright" left="right(parenleft)" width="width(parenleft)"/>

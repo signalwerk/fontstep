@@ -27,9 +27,11 @@ import datetime
 import re
 
 
-currAction = None
-currGlyph = None
+currAction = None  # name of current step/action
+currGlyph  = None  # current PSName of glyph-tag
 
+# for components handling
+currBase   = { 'base' : '', 'xScale' : 1, 'yScale' : 1, 'xShift' : 0, 'yShift' : 0 }
 
 def start_step(attrib):
     global currAction, currGlyph
@@ -92,11 +94,35 @@ def start_glyph(attrib):
     if currAction == 'unicode':
         doUnicode(currGlyph, attrib['UID'])
 
-
 def start_base(attrib):
-    print "Copy %s to %s" % (currGlyph, attrib['PSName'])
-    copyGlyph(currGlyph, attrib['PSName'])
+    global currAction, currBase
 
+    if currAction == 'copy':
+        print "Copy %s to %s" % (currGlyph, attrib['PSName'])
+        copyGlyph(currGlyph, attrib['PSName'])
+
+    if currAction == 'components':
+        currBase['base'] = attrib['PSName']
+
+def end_base():
+    global currAction
+
+    if currAction == 'components':
+        doComponents()
+
+def start_scale(attrib):
+    global currAction
+
+    if currAction == 'components':
+        currBase['xScale'] = float(attrib['x'])
+        currBase['yScale'] = float(attrib['y'])
+
+def start_shift(attrib):
+    global currAction
+
+    if currAction == 'components':
+        currBase['xShift'] = float(attrib['x'])
+        currBase['yShift'] = float(attrib['y'])
 
 def end_font():
     f.update()
@@ -105,7 +131,9 @@ def end_font():
 #XML parser - could be replace by more up-to-date SAX parser
 class jobXML(XMLParser):
     elements = {'glyph': [start_glyph, None],
-                'base': [start_base, None],
+                'base': [start_base, end_base],
+                'scale': [start_scale, None],
+                'shift': [start_shift, None],
                 'step': [start_step, end_step],
                 'font': [None,   end_font]}
 
@@ -257,6 +285,21 @@ def getMetrics(strFunction):
 
     else:
         print "uuuh! no function in " + strFunction
+
+
+def doComponents():
+    global currBase, currGlyph
+
+    g = f[ currGlyph ]  
+
+    g.appendComponent( currBase['base'], (currBase['xShift'], currBase['yShift']), (currBase['xScale'], currBase['yScale']) )
+    
+    # reset defaults
+    currBase['base'] = ''
+    currBase['xShift'] = 0
+    currBase['yShift'] = 0
+    currBase['xScale'] = 1
+    currBase['yScale'] = 1
 
 
 def doMetrics(attrib):

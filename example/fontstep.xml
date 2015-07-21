@@ -45,8 +45,20 @@
         <glyph PSName="dot_helper"/>
     </step>
 
-    <!-- The characters with the name yen and dollar get decomposed and all overlaps removed-->
+    <!-- The characters with the name yen and dollar get decomposed -->
     <step action="decompose">
+        <glyph PSName="yen"/>
+        <glyph PSName="dollar"/>
+    </step>
+
+    <!-- The overlaps of the characters with the name yen and get removed-->
+    <step action="removeOverlap">
+        <glyph PSName="yen"/>
+        <glyph PSName="dollar"/>
+    </step>
+
+    <!-- The characters with the name yen and dollar get decomposed and all overlaps removed-->
+    <step action="decomposeRemoveOverlap">
         <glyph PSName="yen"/>
         <glyph PSName="dollar"/>
     </step>

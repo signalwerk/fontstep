@@ -6,7 +6,9 @@ fontstep is a little python-script to run some build-steps in FontLab for deploy
 * copysave - creates a copy of the font with a new name
 * metric - set metrics according to other glyphs
 * delete - delete sepecific glyphs
-* decompose - decompose and remove overlaps
+* decompose - decompose glyphs
+* removeOverlap - remove overlaps in glyphs
+* decomposeRemoveOverlap - decompose and remove overlaps
 * copy - copy specific glyphs
 * autoUnicode - auto unicode the whole font 
 * components – add components to a glyphs
@@ -129,13 +131,41 @@ Deletes a specific glyph
 ```
 
 ### decompose (action)
-A specific glyph get decomposed and all overlaps removed
+A specific glyph gets decomposed.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <font>
     <!-- the characters with the name yen and dollar get decomposed and all overlaps removed-->
     <step action="decompose">
+        <glyph PSName="yen"/>
+        <glyph PSName="dollar"/>
+    </step>
+</font>
+```
+
+### removeOverlap (action)
+A all overlaps of a specific glyph get removed
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<font>
+    <!-- the characters with the name yen and dollar get decomposed and all overlaps removed-->
+    <step action="removeOverlap">
+        <glyph PSName="yen"/>
+        <glyph PSName="dollar"/>
+    </step>
+</font>
+```
+
+### decomposeRemoveOverlap (action)
+A specific glyph gets decomposed and all overlaps removed. Shorthand for `decompose` and `removeOverlap`.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<font>
+    <!-- the characters with the name yen and dollar get decomposed and all overlaps removed-->
+    <step action="decomposeRemoveOverlap">
         <glyph PSName="yen"/>
         <glyph PSName="dollar"/>
     </step>

@@ -88,6 +88,13 @@ def start_glyph(attrib):
     if currAction == 'decompose':
         doDecompose(currGlyph)
 
+    if currAction == 'removeOverlap':
+        doRemoveOverlap(currGlyph)
+
+    if currAction == 'decomposeRemoveOverlap':
+        doDecompose(currGlyph)
+        doRemoveOverlap(currGlyph)
+
     if currAction == 'metrics':
         doMetrics(attrib)
 
@@ -201,12 +208,28 @@ def doDecompose(glyphname):
         g.decompose()
         g.decompose()
         g.decompose()
+        g.update()
+
+
+# remove overlaps for some glyphs
+def doRemoveOverlap(glyphname):
+
+    glyphNames = []
+
+    if glyphname[0] == "@":
+        glyphNames.extend(getGlyphClass(glyphname))
+    else:
+        glyphNames.append(glyphname)
+
+    for cIdx in range(len(glyphNames)):
+        
+        #print "remove overlaps of composed glyphs"
+        g = f[glyphNames[cIdx]]
         # multiple remove to clean up straight lines with points inbetween
         g.removeOverlap()
         g.removeOverlap()
         g.removeOverlap()
         g.update()
-
 
 
 def doDelGlyphs(glyphname):

@@ -75,12 +75,18 @@
         <glyph PSName="nine.fitted" UID="0xF641"/>
     </step>
 
-    <!-- Add a component to a glyph -->
+    <!-- Add a component to a glyph. adieresis gets two components: a and dieresis -->
     <step action="components">
-        <glyph PSName="a.alt1">
+        <glyph PSName="adieresis">
             <base PSName="a">
-                <scale x="0.5" y="0.5"/>
-                <shift x="40" y="10"/>
+                <scale x="1" y="1"/>
+                <shift x="0" y="0"/>
+            </base>
+        </glyph>
+        <glyph PSName="adieresis">
+            <base PSName="dieresis">
+                <scale x="1" y="1"/>
+                <shift x="10" y="0"/>
             </base>
         </glyph>
     </step>

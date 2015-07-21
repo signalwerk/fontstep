@@ -9,7 +9,7 @@
 # http://scripts.sil.org/FLGlyphBuilder
 #
 # todo:
-# â€“ error-handling
+# Ð error-handling
 # - Code-Cleaning...
 #
 #
@@ -98,7 +98,7 @@ def start_base(attrib):
     global currAction, currBase
 
     if currAction == 'copy':
-        print "Copy %s to %s" % (currGlyph, attrib['PSName'])
+        print "Copy %s to %s" % (attrib['PSName'], currGlyph)
         copyGlyph(currGlyph, attrib['PSName'])
 
     if currAction == 'components':
@@ -175,7 +175,11 @@ def is_numeric(lit):
 def doUnicode(glyphname, unicode):
     print "Unicode of %s to %s" % (glyphname, unicode)
 
-    f[glyphname].unicodes = [is_numeric(unicode)]
+    if not unicode:
+        f[glyphname].autoUnicodes()
+    else:
+        f[glyphname].unicodes = [is_numeric(unicode)]
+
     f[glyphname].update()
 
 
@@ -193,6 +197,9 @@ def doDecompose(glyphname):
         
         #print "remove overlaps of composed glyphs"
         g = f[glyphNames[cIdx]]
+        # multiple decompose because of strange FontLab behaviour...
+        g.decompose()
+        g.decompose()
         g.decompose()
         # multiple remove to clean up straight lines with points inbetween
         g.removeOverlap()

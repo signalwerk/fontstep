@@ -9,6 +9,7 @@ fontstep is a little python-script to run some build-steps in FontLab for deploy
 * decompose - decompose and remove overlaps
 * copy - copy specific glyphs
 * autoUnicode - auto unicode the whole font 
+* components – add components to a glyphs
 * unicode - set unicode-point with UID attribute
 * copysave - creates  a copy of the font with a new name
 * orderGlyphs – sort all Glyphs in the Font by Name
@@ -182,6 +183,23 @@ Some specific glyphs get an unicode-point (decimal)
         <glyph PSName="seven.fitted" UID="63039"/>
         <glyph PSName="eight.fitted" UID="63040"/>
         <glyph PSName="nine.fitted" UID="63041"/>
+    </step>
+</font>
+```
+
+### components (action)
+Adds to a glyph (`<glyph/>`) a new component (`<base/>`) with a specific scale (`<scale/>`) and shift (`<shift/>`).
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<font>
+    <step action="components">
+        <glyph PSName="a.alt1">
+            <base PSName="a">
+                <scale x="0.5" y="0.5"/>
+                <shift x="40" y="10"/>
+            </base>
+        </glyph>
     </step>
 </font>
 ```

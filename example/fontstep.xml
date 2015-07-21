@@ -75,6 +75,16 @@
         <glyph PSName="nine.fitted" UID="0xF641"/>
     </step>
 
+    <!-- Add a component to a glyph -->
+    <step action="components">
+        <glyph PSName="a.alt1">
+            <base PSName="a">
+                <scale x="0.5" y="0.5"/>
+                <shift x="40" y="10"/>
+            </base>
+        </glyph>
+    </step>
+ 
     <!-- Sort all Glyphs in the Font by Name -->
     <step action="orderGlyphs" by="name"/>
     

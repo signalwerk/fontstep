@@ -9,14 +9,14 @@
 # http://scripts.sil.org/FLGlyphBuilder
 #
 # todo:
-# – error-handling
+# √ê error-handling
 # - Code-Cleaning...
 #
 #
 ########################################################################
 #
-# Released under the BSD 2-Clause license:
-# http://opensource.org/licenses/BSD-2-Clause
+# Released under the MIT license:
+# https://opensource.org/licenses/MIT
 #
 ########################################################################
 

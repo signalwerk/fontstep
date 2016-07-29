@@ -1,6 +1,8 @@
 ## fontstep.py
 fontstep is a little python-script to run some build-steps in FontLab for deploying fonts
 
+[![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)]()
+
 ### Actions you can control:
 
 * copysave - creates a copy of the font with a new name
